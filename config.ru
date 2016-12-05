@@ -17,8 +17,8 @@ map '/' do
       "<!doctype html><html><body><p><pre>",
       env['HTTP_X_FORWARDED_FOR'],
       "</pre></body></html>"
-    ]
-    [200, { "Content-Type" => "text/html" }, content]
+    ].join
+    [200, { "Content-Type" => "text/html" }, [content]]
   end
   run doc
 end
