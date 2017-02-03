@@ -15,7 +15,9 @@ map '/' do
   doc = proc do |env|
     content = [
       "<!doctype html><html><body><p><pre>",
-      env['HTTP_X_FORWARDED_FOR'],
+      env.select {|k,_| k =~ /\AHTTP_/}.
+          map {|k,v| "#{k}=#{v}\n"}.
+          join,
       "</pre></body></html>"
     ].join
     [200, { "Content-Type" => "text/html" }, [content]]
